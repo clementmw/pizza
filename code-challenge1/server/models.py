@@ -1,8 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy_serializer import SerializerMixin
 
 db = SQLAlchemy()
 
-class Restaurant(db.Model):
+class Restaurant(db.Model, SerializerMixin):
     __tablename__ = 'restaurants'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -13,6 +14,10 @@ class Restaurant(db.Model):
     restaurant_pizza = db.relationship('Restaurant_Pizza', backref='restaurant')
 
     # serialize
+    def serialize(self):
+        return {  "id": self.id,"name": self.name,"address": self.address }  
+       
+         
 
 class Pizza(db.Model):
     __tablename__ = 'pizzas'
@@ -25,6 +30,9 @@ class Pizza(db.Model):
 
     # relationship
     restaurant_pizza = db.relationship('Restaurant_Pizza', backref='pizza')
+    # serialize
+    def serialize(self):
+        return {  "id": self.id,"name": self.name,"ingredients": self.ingredients, 'created_at':self.created_at }
 
 
 class Restaurant_Pizza(db.Model):
@@ -39,6 +47,8 @@ class Restaurant_Pizza(db.Model):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
     # serialize
+    def serialize(self):
+        return {  "id": self.id,"price": self.price, 'created_at':self.created_at }
 
 
 
