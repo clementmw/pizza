@@ -33,7 +33,7 @@ class Restaurant_Pizza(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     # relationship
     pizza_id = db.Column(db.Integer, db.ForeignKey( 'pizzas.id'))
-    restrant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'))
+    restaurant_id = db.Column(db.Integer, db.ForeignKey('restaurants.id'))
     price = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default = db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())

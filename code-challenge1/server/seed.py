@@ -1,6 +1,9 @@
 from models import Restaurant,Restaurant_Pizza,Pizza, db
 from random import choice as rc
 from app import app
+from faker import Faker
+
+fake = Faker()
 
 
 with app.app_context():
@@ -24,43 +27,33 @@ with app.app_context():
         db.session.commit()
 
      # Seed new pizza data
-    # pizzas = [
-    #     { "name": "Kamala Khan", "super_name": "Ms. Marvel" },
-    #     { "name": "Doreen Green", "super_name": "Squirrel Girl" },
-    #     { "name": "Gwen Stacy", "super_name": "Spider-Gwen" },
-    #     { "name": "Janet Van Dyne", "super_name": "The Wasp" },
-    #     { "name": "Wanda Maximoff", "super_name": "Scarlet Witch" },
-    #     { "name": "Carol Danvers", "super_name": "Captain Marvel" },
-    #     { "name": "Jean Grey", "super_name": "Dark Phoenix" },
-    #     { "name": "Ororo Munroe", "super_name": "Storm" },
-    #     { "name": "Kitty Pryde", "super_name": "Shadowcat" },
-    #     { "name": "Elektra Natchios", "super_name": "Elektra" }
-    # ]
+    pizzas = [
+        { 'name': "Cheese-pizza", 'ingredients': "Cheese" },
+        { 'name': "Pepperoni-pizza", 'ingredients': "Pepperoni" },
+        { 'name': "Hawaiian-pizza", 'ingredients': "Hawaiian" },
+        { 'name': "Meat-pizza", 'ingredients': "Meat" },
+        { 'name': "Veggie-pizza", 'ingredients': "Veggie"}
+    ]
 
-    # for hero in heroes:
-    #     new_hero = Hero(**hero)
-    #     db.session.add(new_hero)
+    for pizza in pizzas:
+        new_pizza = Pizza(**pizza) 
+        db.session.add(new_pizza)
+    db.session.commit()
 
-    # # Commit changes to the database
-    # db.session.commit()
-
-    # # Seed data for Restaurant_Pizza
-
+    # Seed data for Restaurant_Pizza
     restaurant_data = Restaurant.query.all()
-    # pizza_data = Pizza.query.all()
+    pizza_data = Pizza.query.all()
 
     restaurant_pizza = []
 
-        
-    for restaurant_data in restaurant_data:
+    for _ in range(10):  # Adjust the number as needed
         data = Restaurant_Pizza(
-        # 
-        # price = rc(prices),
-        # pizza_id = rc(pizza_data).id,
-        restaurant_id = rc(restaurant_data).id
+            price=fake.random_int(min=145, max=563),  
+            pizza_id=rc(pizza_data).id,
+            restaurant_id = rc(restaurant_data).id
         )
+        restaurant_pizza.append(data)
 
-    restaurant_pizza.append(data)
     db.session.add_all(restaurant_pizza)
     db.session.commit()
 
