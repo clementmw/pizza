@@ -14,8 +14,8 @@ with app.app_context():
 
     # Seed new restaurant data
     restaurants = [
-        { 'name': "Wingmans", 'address': "Kirby Shoals, Lake Krista" },
-        { 'name': "The garden", 'address': "Tyron Viaduct, East Carita" },
+        { 'name': "Sottocasa NYC", 'address': "298 Atlantic Ave, Brooklyn, NY 11201" },
+        { 'name': "PizzArte" ,'address': "69 W 55th St, New York, NY 10019" },
         { 'name': "Nacho palace", 'address': "Weissnat Squares, New Carroltown" },
         { 'name': "B pizzas", 'address': "Merlin Roads, Port Darrellport" },
         {'name': "The Winstonian", 'address': "Sanford Loop, Port Walter" }
@@ -28,8 +28,8 @@ with app.app_context():
 
      # Seed new pizza data
     pizzas = [
-        { 'name': "Cheese-pizza", 'ingredients': "Cheese" },
-        { 'name': "Pepperoni-pizza", 'ingredients': "Pepperoni" },
+        { 'name': "Cheese-pizza", 'ingredients': "Dough, Tomato Sauce, Cheese" },
+        { 'name': "Pepperoni-pizza", 'ingredients':  "Dough, Tomato Sauce, Cheese, Pepperoni"},
         { 'name': "Hawaiian-pizza", 'ingredients': "Hawaiian" },
         { 'name': "Meat-pizza", 'ingredients': "Meat" },
         { 'name': "Veggie-pizza", 'ingredients': "Veggie"}
@@ -48,7 +48,7 @@ with app.app_context():
 
     for _ in range(10):  # Adjust the number as needed
         data = Restaurant_Pizza(
-            price=fake.random_int(min=145, max=563),  
+            price=fake.random_int(min=1, max=30),  
             pizza_id=rc(pizza_data).id,
             restaurant_id = rc(restaurant_data).id
         )
